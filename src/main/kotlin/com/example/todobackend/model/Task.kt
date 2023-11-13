@@ -3,8 +3,9 @@ package com.example.todobackend.model
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
+import jakarta.persistence.OneToMany
 import org.springframework.data.annotation.Id
-import java.util.*
+import java.sql.Date
 
 @Entity
 class Task(
@@ -14,5 +15,8 @@ class Task(
         var completion : Date,
         var priority : Priority,
         @jakarta.persistence.Id @Id
-        @GeneratedValue(strategy = GenerationType.AUTO) var id: Long
+        @GeneratedValue(strategy = GenerationType.AUTO) var id: Long?,
+
+        @OneToMany(mappedBy = "task", orphanRemoval = true)
+        var subtasks: List<Subtask>
 )
