@@ -1,5 +1,6 @@
 package com.example.todobackend.service
 
+import com.example.todobackend.model.Priority
 import com.example.todobackend.model.Task
 import com.example.todobackend.repository.TaskRepository
 import org.springframework.stereotype.Service
@@ -9,8 +10,8 @@ import java.sql.Date
 class TaskService(
         private val taskRepository: TaskRepository
 ) {
-    fun getAllByCompletionDate(date: Date): List<Task> {
-        return taskRepository.findAllByCompletion(date)
+    fun getAllByParams(date: Date?, prio: Priority?, completed: Boolean?): List<Task> {
+        return taskRepository.findAllByParameters(date, prio, completed)
     }
 
     fun getById(id: Long): Task {
