@@ -4,12 +4,15 @@ import com.example.todobackend.model.Priority
 import com.example.todobackend.model.Task
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.query.Param
 import java.sql.Date
 
 interface TaskRepository : CrudRepository<Task, Long> {
     @Query("select t from Task t " +
-            "where (t.completion is null or t.completion = #{date}) " +
-            "and (t.priority is null or t.priority = #{priority}) " +
-            "and (t.completed is null or t.completed = #{completed})", nativeQuery = true)
-    fun findAllByParameters(date: Date?, priority: Priority?, completed: Boolean?): List<Task>
+            "where (:completion is null or t.completion = :completion) " +
+            "and (:priority is null or t.priority = :priority) " +
+            "and (:completed is null or t.completed = :completed)")
+    fun findAllByParameters(@Param("completion") date: Date?,
+                            @Param("priority") priority: Priority?,
+                            @Param("completed") completed: Boolean?): List<Task>
 }

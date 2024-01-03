@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("tasks/{id}/subtasks")
+@ResponseBody
 class SubtaskController(
         private val subtaskService: SubtaskService
 ) {
