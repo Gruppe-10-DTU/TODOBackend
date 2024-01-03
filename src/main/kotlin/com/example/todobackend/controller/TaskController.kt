@@ -10,10 +10,11 @@ import java.util.*
 
 @Controller
 @RequestMapping("tasks")
+@ResponseBody
 class TaskController(
         private val taskService: TaskService
 ) {
-    @GetMapping("/")
+    @GetMapping
     fun get(@RequestParam(value = "completionDate", required = false) date: Date?,
             @RequestParam(value = "priority", required = false) prio: Priority?,
             @RequestParam(value = "completion", required = false) completed: Boolean?
