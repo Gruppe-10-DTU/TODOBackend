@@ -1,7 +1,6 @@
 package com.example.todobackend.model
 
 import jakarta.persistence.*
-import org.springframework.context.annotation.Lazy
 import org.springframework.data.annotation.Id
 import java.sql.Timestamp
 

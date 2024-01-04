@@ -5,7 +5,6 @@ import com.example.todobackend.model.Task
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
-import java.sql.Date
 import java.sql.Timestamp
 
 interface TaskRepository : CrudRepository<Task, Long> {
