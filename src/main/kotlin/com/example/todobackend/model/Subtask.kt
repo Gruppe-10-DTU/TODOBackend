@@ -2,7 +2,6 @@ package com.example.todobackend.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
-import org.springframework.context.annotation.Lazy
 import org.springframework.data.annotation.Id
 
 @Entity

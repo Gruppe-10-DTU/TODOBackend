@@ -1,5 +1,5 @@
 package com.example.todobackend.dto
 data class SubtaskDTO (
-    var title : String,
-    var completed : Boolean
+    val title : String,
+    val completed : Boolean
 )

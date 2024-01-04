@@ -6,9 +6,7 @@ import com.example.todobackend.model.Task
 import com.example.todobackend.service.TaskService
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
-import java.sql.Date
 import java.sql.Timestamp
-import java.util.*
 
 @Controller
 @RequestMapping("tasks")

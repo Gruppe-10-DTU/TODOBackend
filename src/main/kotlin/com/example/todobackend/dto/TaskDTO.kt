@@ -4,8 +4,8 @@ import com.example.todobackend.model.Priority
 import java.sql.Timestamp
 
 data class TaskDTO (
-    var title : String,
-    var completed : Boolean,
-    var deadline : Timestamp,
-    var priority : Priority
+    val title : String,
+    val completed : Boolean,
+    val deadline : Timestamp,
+    val priority : Priority
 )
