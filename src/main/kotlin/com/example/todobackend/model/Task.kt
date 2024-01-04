@@ -1,8 +1,9 @@
 package com.example.todobackend.model
 
 import jakarta.persistence.*
+import org.springframework.context.annotation.Lazy
 import org.springframework.data.annotation.Id
-import java.sql.Date
+import java.sql.Timestamp
 
 @Entity
 @Table(name = "task")
@@ -10,14 +11,11 @@ class Task(
         @Column(name = "title")
         var title : String,
 
-        @Column(name = "description")
-        var description : String,
-
         @Column(name = "completed")
         var completed : Boolean,
 
         @Column(name = "completion")
-        var completion : Date,
+        var deadline : Timestamp,
 
         @Column(name = "priority")
         var priority : Priority,

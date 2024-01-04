@@ -1,16 +1,17 @@
 package com.example.todobackend.service
 
+import com.example.todobackend.dto.TaskDTO
 import com.example.todobackend.model.Priority
 import com.example.todobackend.model.Task
 import com.example.todobackend.repository.TaskRepository
 import org.springframework.stereotype.Service
-import java.sql.Date
+import java.sql.Timestamp
 
 @Service
 class TaskService(
         private val taskRepository: TaskRepository
 ) {
-    fun getAllByParams(date: Date?, prio: Priority?, completed: Boolean?): List<Task> {
+    fun getAllByParams(date: Timestamp?, prio: Priority?, completed: Boolean?): List<Task> {
         return taskRepository.findAllByParameters(date, prio, completed)
     }
 
@@ -18,12 +19,16 @@ class TaskService(
         return taskRepository.findById(id).get()
     }
 
-    fun addTask(task: Task): Task {
-        return taskRepository.save(task)
+    fun addTask(dto: TaskDTO): Task {
+        return taskRepository.save(Task(dto.title, dto.completed, dto.deadline, dto.priority, null, emptyList()))
     }
 
-    fun editTask(id: Long, task: Task): Task {
-        task.id = id
+    fun editTask(id: Long, dto: TaskDTO): Task {
+        val task = taskRepository.findById(id).get()
+        task.deadline = dto.deadline
+        task.completed = dto.completed
+        task.priority = dto.priority
+        task.title = dto.title
         return taskRepository.save(task)
     }
 

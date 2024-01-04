@@ -1,5 +1,6 @@
 package com.example.todobackend.controller
 
+import com.example.todobackend.dto.SubtaskDTO
 import com.example.todobackend.model.Subtask
 import com.example.todobackend.service.SubtaskService
 import org.springframework.stereotype.Controller
@@ -19,14 +20,14 @@ class SubtaskController(
 
     @PostMapping
     fun post(@PathVariable("id") id: Long,
-             @RequestBody subtask: Subtask): Subtask {
-        return subtaskService.addSubtask(id, subtask)
+             @RequestBody dto: SubtaskDTO): Subtask {
+        return subtaskService.addSubtask(id, dto)
     }
 
     @PutMapping("/{subtaskId}")
     fun editSubtask(@PathVariable("subtaskId") subtaskId: Long,
-                    @RequestBody subtask: Subtask) : Subtask {
-        return subtaskService.editSubtask(subtaskId, subtask)
+                    @RequestBody dto: SubtaskDTO) : Subtask {
+        return subtaskService.editSubtask(subtaskId, dto)
     }
 
     @DeleteMapping("/{subtaskId}")
