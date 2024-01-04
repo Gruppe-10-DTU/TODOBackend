@@ -1,6 +1,8 @@
 package com.example.todobackend.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
+import org.springframework.context.annotation.Lazy
 import org.springframework.data.annotation.Id
 
 @Entity
@@ -12,6 +14,7 @@ class Subtask(
         @Column(name = "completed")
         var completed : Boolean,
 
+        @JsonIgnore
         @ManyToOne
         @JoinColumn(name = "task_id")
         var parent : Task,
@@ -19,5 +22,5 @@ class Subtask(
         @jakarta.persistence.Id @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name = "subtask_id")
-        var id: Long
+        var id: Long?
 )
