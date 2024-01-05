@@ -5,7 +5,7 @@ import java.sql.Timestamp
 
 data class TaskDTO (
     val title : String,
-    val completed : Boolean,
+    val isCompleted : Boolean,
     val deadline : Timestamp,
     val priority : Priority
 )

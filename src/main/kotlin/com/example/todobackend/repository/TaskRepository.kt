@@ -11,7 +11,7 @@ interface TaskRepository : CrudRepository<Task, Long> {
     @Query("select t from Task t " +
             "where (:deadline is null or t.deadline = :deadline) " +
             "and (:priority is null or t.priority = :priority) " +
-            "and (:completed is null or t.completed = :completed)")
+            "and (:completed is null or t.isCompleted = :completed)")
     fun findAllByParameters(@Param("deadline") date: Timestamp?,
                             @Param("priority") priority: Priority?,
                             @Param("completed") completed: Boolean?): List<Task>

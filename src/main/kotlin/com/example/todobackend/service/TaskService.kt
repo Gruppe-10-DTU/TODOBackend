@@ -6,6 +6,7 @@ import com.example.todobackend.model.Task
 import com.example.todobackend.repository.TaskRepository
 import org.springframework.stereotype.Service
 import java.sql.Timestamp
+import java.time.Instant
 
 @Service
 class TaskService(
@@ -20,13 +21,13 @@ class TaskService(
     }
 
     fun addTask(dto: TaskDTO): Task {
-        return taskRepository.save(Task(dto.title, dto.completed, dto.deadline, dto.priority, null, emptyList()))
+        return taskRepository.save(Task(dto.title, dto.isCompleted, dto.deadline, dto.priority, null, emptyList()))
     }
 
     fun editTask(id: Long, dto: TaskDTO): Task {
         val task = taskRepository.findById(id).get()
         task.deadline = dto.deadline
-        task.completed = dto.completed
+        task.isCompleted = dto.isCompleted
         task.priority = dto.priority
         task.title = dto.title
         return taskRepository.save(task)
