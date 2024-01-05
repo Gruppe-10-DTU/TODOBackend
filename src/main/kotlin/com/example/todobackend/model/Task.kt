@@ -1,5 +1,6 @@
 package com.example.todobackend.model
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import jakarta.persistence.*
 import org.springframework.data.annotation.Id
 import java.sql.Timestamp
@@ -11,8 +12,9 @@ class Task(
         var title : String,
 
         @Column(name = "completed")
-        var completed : Boolean,
+        var isCompleted : Boolean,
 
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         @Column(name = "completion")
         var deadline : Timestamp,
 
