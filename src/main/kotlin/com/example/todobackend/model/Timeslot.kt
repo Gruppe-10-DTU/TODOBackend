@@ -1,9 +1,8 @@
 package com.example.todobackend.model
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import jakarta.persistence.*
 import org.springframework.data.annotation.Id
-import java.sql.Time
+import java.time.LocalTime
 
 @Entity
 @Table(name = "timeslot")
@@ -16,14 +15,12 @@ class Timeslot(
     @Column(name = "name")
     var name: String,
 
-    @JsonFormat(pattern = "HH:mm:ss")
-    @Column(name = "start_time")
-    var start: Time,
+    @Column(name = "start")
+    var start: LocalTime,
 
-    @JsonFormat(pattern = "HH:mm:ss")
-    @Column(name = "end_time")
-    var end: Time,
+    @Column(name = "end")
+    var end: LocalTime,
 
     @OneToMany(mappedBy = "timeslot")
-    var tasks: List<Task>
+    var tasks: List<Subtask>
 )
