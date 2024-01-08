@@ -4,22 +4,19 @@ import com.example.todobackend.dto.TimeslotDTO
 import com.example.todobackend.model.Timeslot
 import com.example.todobackend.repository.TimeslotRepository
 import org.springframework.stereotype.Service
-import java.sql.Time
-import java.util.NoSuchElementException
 
 @Service
 class TimeslotService(
     private val timeslotRepository: TimeslotRepository
 ) {
     fun addTimeslot(dto: TimeslotDTO): Timeslot {
-        return timeslotRepository.save(Timeslot(null, dto.name, Time.valueOf(dto.start), Time.valueOf(dto.end), emptyList()))
+        return timeslotRepository.save(Timeslot(null, dto.name, dto.start, dto.end, emptyList()))
     }
 
     fun getAll(): List<Timeslot> {
         return timeslotRepository.findAll().toList()
     }
 
-    @Throws(NoSuchElementException::class)
     fun editTimeslot(id: Long, dto: TimeslotDTO): Timeslot {
         val timeslot = timeslotRepository.findById(id).get()
         timeslot.name = dto.name

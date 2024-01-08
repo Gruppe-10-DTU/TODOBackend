@@ -1,5 +1,6 @@
 package com.example.todobackend.model
 
+import com.example.todobackend.dto.TimeslotDTO
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
