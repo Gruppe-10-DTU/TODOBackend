@@ -1,6 +1,8 @@
 package com.example.todobackend.model
 
+import com.example.todobackend.dto.TimeslotDTO
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import org.springframework.data.annotation.Id
 import java.sql.Timestamp
@@ -27,5 +29,10 @@ class Task(
         var id: Long?,
 
         @OneToMany(mappedBy = "parent", orphanRemoval = true)
-        var subtasks: List<Subtask>
+        var subtasks: List<Subtask>,
+
+        @JsonIgnore
+        @ManyToOne
+        @JoinColumn(name = "timeslot_id")
+        var timeslot : Timeslot?
 )
