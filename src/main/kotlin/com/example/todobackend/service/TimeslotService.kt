@@ -4,13 +4,14 @@ import com.example.todobackend.dto.TimeslotDTO
 import com.example.todobackend.model.Timeslot
 import com.example.todobackend.repository.TimeslotRepository
 import org.springframework.stereotype.Service
+import java.sql.Time
 
 @Service
 class TimeslotService(
     private val timeslotRepository: TimeslotRepository
 ) {
     fun addTimeslot(dto: TimeslotDTO): Timeslot {
-        return timeslotRepository.save(Timeslot(null, dto.name, dto.start, dto.end, emptyList()))
+        return timeslotRepository.save(Timeslot(null, dto.name, Time.valueOf(dto.start), Time.valueOf(dto.end), emptyList()))
     }
 
     fun getAll(): List<Timeslot> {
