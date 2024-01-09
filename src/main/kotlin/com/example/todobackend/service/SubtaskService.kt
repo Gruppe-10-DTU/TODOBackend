@@ -15,11 +15,13 @@ class SubtaskService(
         return subtaskRepository.findAllByParentId(taskId)
     }
 
+    @Throws(NoSuchElementException::class)
     fun addSubtask(id: Long, dto: SubtaskDTO): Subtask {
         val task = taskRepository.findById(id).get()
-        return subtaskRepository.save(Subtask(dto.title, dto.completed, task, null))
+        return subtaskRepository.save(Subtask(dto.title, dto.completed, task, 0))
     }
 
+    @Throws(NoSuchElementException::class)
     fun editSubtask(subtaskId: Long, dto: SubtaskDTO): Subtask {
         val subtask = subtaskRepository.findById(subtaskId).get()
         subtask.title = dto.title

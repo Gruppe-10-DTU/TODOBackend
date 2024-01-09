@@ -4,6 +4,7 @@ import com.example.todobackend.dto.TaskDTO
 import com.example.todobackend.model.Priority
 import com.example.todobackend.model.Task
 import com.example.todobackend.service.TaskService
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import java.sql.Timestamp
@@ -18,31 +19,52 @@ class TaskController(
     fun get(@RequestParam(value = "completionDate", required = false) date: Timestamp?,
             @RequestParam(value = "priority", required = false) prio: Priority?,
             @RequestParam(value = "completion", required = false) completed: Boolean?
-            ): List<Task> {
+            ): ResponseEntity<List<Task>> {
 
-        return taskService.getAllByParams(date, prio, completed)
+        return ResponseEntity.ok(taskService.getAllByParams(date, prio, completed))
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable("id") id: Long): Task {
-        return taskService.getById(id)
+    fun get(@PathVariable("id") id: Long): ResponseEntity<Task> {
+        val task = taskService.getById(id)
+
+        if (task.isEmpty) {
+            return ResponseEntity.notFound().build()
+        }
+
+        return ResponseEntity.ok(task.get())
     }
 
     @PostMapping
-    fun addNewTask(@RequestBody dto: TaskDTO): Task {
-        return taskService.addTask(dto)
+    fun addNewTask(@RequestBody dto: TaskDTO): ResponseEntity<Task> {
+        val task: Task
+
+        try {
+             task = taskService.addTask(dto)
+        } catch (exception: Exception){
+            return ResponseEntity.badRequest().build()
+        }
+
+        return ResponseEntity.ok(task)
     }
 
     @PutMapping("/{id}")
     fun editTask(@PathVariable("id") id: Long,
-                 @RequestBody dto: TaskDTO): Task {
+                 @RequestBody dto: TaskDTO): ResponseEntity<Task> {
+        val task: Task
+        try {
+            task = taskService.editTask(id, dto)
+        } catch (exception: NoSuchElementException) {
+            return ResponseEntity.notFound().build()
+        }
 
-        return taskService.editTask(id, dto)
+        return ResponseEntity.ok(task)
     }
 
     @DeleteMapping("/{id}")
-    fun deleteTask(@PathVariable("id") id: Long) {
+    fun deleteTask(@PathVariable("id") id: Long): ResponseEntity<Void> {
         taskService.deleteTask(id)
+        return ResponseEntity.noContent().build()
     }
 
 }
