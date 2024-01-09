@@ -3,6 +3,7 @@ package com.example.todobackend.controller
 import com.example.todobackend.dto.SubtaskDTO
 import com.example.todobackend.model.Subtask
 import com.example.todobackend.service.SubtaskService
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
@@ -14,24 +15,41 @@ class SubtaskController(
 ) {
 
     @GetMapping
-    fun get(@PathVariable("id") id: Long): List<Subtask> {
-        return subtaskService.getAllSubtasks(id)
+    fun get(@PathVariable("id") id: Long): ResponseEntity<List<Subtask>> {
+        val subtasks = subtaskService.getAllSubtasks(id)
+        return ResponseEntity.ok(subtasks)
     }
 
     @PostMapping
     fun post(@PathVariable("id") id: Long,
-             @RequestBody dto: SubtaskDTO): Subtask {
-        return subtaskService.addSubtask(id, dto)
+             @RequestBody dto: SubtaskDTO): ResponseEntity<Subtask> {
+        val subtask : Subtask
+
+        try {
+            subtask = subtaskService.addSubtask(id, dto)
+        } catch (exception: Exception) {
+            return ResponseEntity.notFound().build()
+        }
+        return ResponseEntity.ok(subtask)
     }
 
     @PutMapping("/{subtaskId}")
     fun editSubtask(@PathVariable("subtaskId") subtaskId: Long,
-                    @RequestBody dto: SubtaskDTO) : Subtask {
-        return subtaskService.editSubtask(subtaskId, dto)
+                    @RequestBody dto: SubtaskDTO, @PathVariable id: String) : ResponseEntity<Subtask> {
+        val subtask: Subtask
+        try {
+            subtask = subtaskService.editSubtask(subtaskId, dto)
+        } catch (exception: Exception) {
+            return ResponseEntity.notFound().build()
+        }
+
+        return ResponseEntity.ok(subtask)
     }
 
     @DeleteMapping("/{subtaskId}")
-    fun deleteSubtask(@PathVariable("subtaskId") subtaskId: Long) {
+    fun deleteSubtask(@PathVariable("subtaskId") subtaskId: Long, @PathVariable id: String): ResponseEntity<Void> {
         subtaskService.deleteSubtask(subtaskId)
+
+        return ResponseEntity.noContent().build()
     }
 }
