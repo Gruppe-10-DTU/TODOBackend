@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.com.intellij.openapi.vfs.StandardFileSystems.jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -14,7 +15,9 @@ version = "0.0.1-SNAPSHOT"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
-
+tasks.named<Jar>("jar") {
+    enabled = false
+}
 repositories {
     mavenCentral()
 }
@@ -38,6 +41,7 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "17"
     }
 }
+
 
 tasks.withType<Test> {
     useJUnitPlatform()
