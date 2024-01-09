@@ -15,9 +15,11 @@ version = "0.0.1-SNAPSHOT"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
+
 tasks.named<Jar>("jar") {
     enabled = false
 }
+
 repositories {
     mavenCentral()
 }
@@ -30,8 +32,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("com.azure.spring:spring-cloud-azure-dependencies:5.8.0")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("com.h2database:h2")
+    runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
