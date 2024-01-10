@@ -64,7 +64,7 @@ class TaskController(
     @DeleteMapping("/{id}")
     fun deleteTask(@PathVariable("id") id: Long): ResponseEntity<Void> {
         taskService.deleteTask(id)
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok().build()
     }
 
 }
