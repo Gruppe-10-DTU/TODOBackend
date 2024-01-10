@@ -32,10 +32,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.azure.spring:spring-cloud-azure-dependencies:5.8.0")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
+    runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
