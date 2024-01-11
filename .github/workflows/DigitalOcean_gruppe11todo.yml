@@ -1,4 +1,4 @@
-name: Build and deploy JAR app to Digital Ocean - gruppe11TODO
+name: Digital Ocean - build and deploy
 
 on:
   push:
