@@ -2,12 +2,14 @@ package com.example.todobackend.model
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import jakarta.persistence.*
 import org.springframework.data.annotation.Id
 import java.sql.Timestamp
 
 @Entity
 @Table(name = "task")
+@JsonSerialize(using = TaskSerializer::class)
 class Task(
         @Column(name = "title")
         var title : String,
