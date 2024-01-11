@@ -3,19 +3,14 @@ package com.example.todobackend.service
 import com.example.todobackend.dto.TaskDTO
 import com.example.todobackend.model.Priority
 import com.example.todobackend.model.Task
-import com.example.todobackend.model.Timeslot
 import com.example.todobackend.repository.TaskRepository
-import com.example.todobackend.repository.TimeslotRepository
 import org.springframework.stereotype.Service
 import java.sql.Timestamp
 import java.util.*
-import kotlin.jvm.optionals.getOrNull
 
 @Service
 class TaskService(
-        private val taskRepository: TaskRepository,
-        private val timeslotRepository: TimeslotRepository
-) {
+        private val taskRepository: TaskRepository) {
     fun getAllByParams(date: Timestamp?, prio: Priority?, completed: Boolean?): List<Task> {
         return taskRepository.findAllByParameters(date, prio, completed)
     }
