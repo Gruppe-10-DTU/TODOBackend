@@ -26,13 +26,8 @@ class TaskService(
     }
 
     fun addTask(dto: TaskDTO): Task {
-        var timeslot: Timeslot? = null
 
-        if (dto.timeslot != null) {
-            timeslot = timeslotRepository.findById(dto.timeslot).getOrNull()
-        }
-
-        return taskRepository.save(Task(dto.title, dto.isCompleted, dto.deadline, dto.priority, 0, emptyList(), timeslot))
+        return taskRepository.save(Task(dto.title, dto.isCompleted, dto.deadline, dto.priority, 0, emptyList(), dto.timeslot))
     }
 
     @Throws(NoSuchElementException::class)
@@ -42,13 +37,8 @@ class TaskService(
         task.isCompleted = dto.isCompleted
         task.priority = dto.priority
         task.title = dto.title
+        task.timeslot = dto.timeslot
 
-        if (dto.timeslot != null) {
-            val timeslot = timeslotRepository.findById(dto.timeslot)
-            if (timeslot.isPresent){
-                task.timeslot = timeslot.get()
-            }
-        }
         return taskRepository.save(task)
     }
 

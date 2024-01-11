@@ -1,6 +1,7 @@
 package com.example.todobackend.dto
 
 import com.example.todobackend.model.Priority
+import com.example.todobackend.model.Timeslot
 import java.sql.Timestamp
 
 data class TaskDTO (
@@ -8,5 +9,5 @@ data class TaskDTO (
     val isCompleted : Boolean,
     val deadline : Timestamp,
     val priority : Priority,
-    val timeslot: Long?
+    val timeslot: Timeslot?
 )
