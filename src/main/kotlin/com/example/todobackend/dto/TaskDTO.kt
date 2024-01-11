@@ -7,5 +7,6 @@ data class TaskDTO (
     val title : String,
     val isCompleted : Boolean,
     val deadline : Timestamp,
-    val priority : Priority
+    val priority : Priority,
+    val timeslot: Long?
 )

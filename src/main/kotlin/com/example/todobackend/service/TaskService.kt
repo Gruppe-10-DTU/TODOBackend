@@ -3,14 +3,18 @@ package com.example.todobackend.service
 import com.example.todobackend.dto.TaskDTO
 import com.example.todobackend.model.Priority
 import com.example.todobackend.model.Task
+import com.example.todobackend.model.Timeslot
 import com.example.todobackend.repository.TaskRepository
+import com.example.todobackend.repository.TimeslotRepository
 import org.springframework.stereotype.Service
 import java.sql.Timestamp
 import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class TaskService(
-        private val taskRepository: TaskRepository
+        private val taskRepository: TaskRepository,
+        private val timeslotRepository: TimeslotRepository
 ) {
     fun getAllByParams(date: Timestamp?, prio: Priority?, completed: Boolean?): List<Task> {
         return taskRepository.findAllByParameters(date, prio, completed)
@@ -22,7 +26,13 @@ class TaskService(
     }
 
     fun addTask(dto: TaskDTO): Task {
-        return taskRepository.save(Task(dto.title, dto.isCompleted, dto.deadline, dto.priority, 0, emptyList(), null))
+        var timeslot: Timeslot? = null
+
+        if (dto.timeslot != null) {
+            timeslot = timeslotRepository.findById(dto.timeslot).getOrNull()
+        }
+
+        return taskRepository.save(Task(dto.title, dto.isCompleted, dto.deadline, dto.priority, 0, emptyList(), timeslot))
     }
 
     @Throws(NoSuchElementException::class)
@@ -32,6 +42,13 @@ class TaskService(
         task.isCompleted = dto.isCompleted
         task.priority = dto.priority
         task.title = dto.title
+
+        if (dto.timeslot != null) {
+            val timeslot = timeslotRepository.findById(dto.timeslot)
+            if (timeslot.isPresent){
+                task.timeslot = timeslot.get()
+            }
+        }
         return taskRepository.save(task)
     }
 

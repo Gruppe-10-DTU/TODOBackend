@@ -3,6 +3,7 @@ package com.example.todobackend.controller
 import com.example.todobackend.dto.TimeslotDTO
 import com.example.todobackend.model.Timeslot
 import com.example.todobackend.service.TimeslotService
+import org.apache.coyote.Response
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
@@ -16,6 +17,15 @@ class TimeslotController(
     @GetMapping
     fun get(): ResponseEntity<List<Timeslot>> {
         return ResponseEntity.ok(timeslotService.getAll())
+    }
+
+    @GetMapping("/{id}")
+    fun get(@PathVariable("id") timeslotId: Long
+    ): ResponseEntity<Timeslot> {
+        val timeslot = timeslotService.findById(timeslotId) ?:
+        return ResponseEntity.notFound().build()
+
+        return ResponseEntity.ok(timeslot)
     }
 
     @PostMapping
