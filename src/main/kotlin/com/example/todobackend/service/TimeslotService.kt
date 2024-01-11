@@ -6,6 +6,7 @@ import com.example.todobackend.repository.TimeslotRepository
 import org.springframework.stereotype.Service
 import java.sql.Time
 import java.util.NoSuchElementException
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class TimeslotService(
@@ -17,6 +18,10 @@ class TimeslotService(
 
     fun getAll(): List<Timeslot> {
         return timeslotRepository.findAll().toList()
+    }
+
+    fun findById(id: Long): Timeslot? {
+        return timeslotRepository.findById(id).getOrNull()
     }
 
     @Throws(NoSuchElementException::class)
