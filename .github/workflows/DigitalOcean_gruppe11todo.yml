@@ -26,18 +26,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-
-      - name: Deploy to DigitalOcean
-        id: deploy-to-server
-        uses: appleboy/scp-action@master
-        env:
-          host: ${{secrets.SSH_HOST}}
-          key: ${{secrets.SSH_KEY}}
-          username: ${{secrets.SSH_USERNAME}}
-        with:
-          source: '${{ github.workspace }}/target/*.jar'
-          target: "/artifact/"
-
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
@@ -54,6 +42,15 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USERNAME }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      - name: Deploy to DigitalOcean
+        id: deploy-to-server
+        run: |
+          scp $SOURCE backend-server:$TARGET
+
+        env:
+          SOURCE: '${{ github.workspace }}/target/*.jar'
+          TARGET: "/artifact/"
 
       - name: Restarting service
         run: ssh backend-server 'sudo systemctl restart todo-backend.service'
