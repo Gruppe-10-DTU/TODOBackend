@@ -50,6 +50,6 @@ class SubtaskController(
     fun deleteSubtask(@PathVariable("subtaskId") subtaskId: Long, @PathVariable id: String): ResponseEntity<Void> {
         subtaskService.deleteSubtask(subtaskId)
 
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok().build()
     }
 }

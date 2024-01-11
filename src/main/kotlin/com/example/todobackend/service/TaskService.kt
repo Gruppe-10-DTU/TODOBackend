@@ -27,7 +27,7 @@ class TaskService(
 
     fun addTask(dto: TaskDTO): Task {
 
-        return taskRepository.save(Task(dto.title, dto.isCompleted, dto.deadline, dto.priority, 0, emptyList(), dto.timeslot))
+        return taskRepository.save(Task(dto.title, dto.isCompleted, dto.deadline, dto.priority, 0, emptyList(), timeslot))
     }
 
     @Throws(NoSuchElementException::class)

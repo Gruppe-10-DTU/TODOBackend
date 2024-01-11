@@ -56,6 +56,6 @@ class TimeslotController(
     @DeleteMapping("/{id}")
     fun deleteTimeslot(@PathVariable("id") timeslotId: Long) : ResponseEntity<Void> {
         timeslotService.deleteTimeslot(timeslotId)
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok().build()
     }
 }
