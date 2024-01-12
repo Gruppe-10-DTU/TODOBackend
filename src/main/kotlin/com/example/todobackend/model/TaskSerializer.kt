@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
-import org.springframework.format.annotation.DateTimeFormat
 import java.time.format.DateTimeFormatter
 
 class TaskSerializer(t: Class<Task>? = null) : StdSerializer<Task>(t) {
@@ -31,8 +30,8 @@ class TaskSerializer(t: Class<Task>? = null) : StdSerializer<Task>(t) {
             gen.writeObjectFieldStart("timeslot")
             gen.writeNumberField("id", timeslot.id!!)
             gen.writeStringField("name", timeslot.name)
-            gen.writeStringField("start", timeslot.start.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")))
-            gen.writeStringField("end", timeslot.end.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")))
+            gen.writeStringField("start", timeslot.start.format(DateTimeFormatter.ofPattern("HH:mm:ss")))
+            gen.writeStringField("end", timeslot.start.format(DateTimeFormatter.ofPattern("HH:mm:ss")))
             gen.writeArrayFieldStart("tasks")
             gen.writeEndArray()
             gen.writeEndObject()
