@@ -32,7 +32,7 @@ class TaskSerializer(t: Class<Task>? = null) : StdSerializer<Task>(t) {
             gen.writeNumberField("id", timeslot.id!!)
             gen.writeStringField("name", timeslot.name)
             gen.writeStringField("start", timeslot.start.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")))
-            gen.writeStringField("end", timeslot.start.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")))
+            gen.writeStringField("end", timeslot.end.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")))
             gen.writeArrayFieldStart("tasks")
             gen.writeEndArray()
             gen.writeEndObject()
